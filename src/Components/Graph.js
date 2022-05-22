@@ -17,16 +17,18 @@ const Graph = ()=>{
 	const [data, setData] = useState({});
 	const [options, setOptions] = useState({});
 	function functionIntegral(x){
-		return 1/2 * x**2;
+		return x ** 2; //linear
+		const e = 2.718;
+	//	return 1/(1+e**-(50*x-20));
 	}
-	const endBound = 1.414;
+	const endBound = 1;
 	function binarySearch(func, val, start, end){
 		let left = start;
 		let right = end;
 		while (left < right){
 			let center = left + (right - left)/2;
-			if (Math.abs(functionIntegral(center) - val) < .01){
-				return functionIntegral(center);
+			if (Math.abs(functionIntegral(center) - val) <= .0001){
+				return center;
 			}else if (functionIntegral(center) < val){
 				left = center;
 			}else if (functionIntegral(center) > val){
@@ -36,9 +38,10 @@ const Graph = ()=>{
 	}
 	let results = data;
 	function generate(){
-		for (let i = 0; i < 100000; i++){
+		for (let i = 0; i < 100; i++){
 			let val = Math.random();
 			let generatedNum = binarySearch(functionIntegral, val, 0, endBound);
+			//let generatedNum = functionIntegral(val);
 			let roundedNum = generatedNum.toFixed(1);
 			//console.log("val: " + val + "generatedNum: " + roundedNum);
 			if (!(roundedNum in results)){
@@ -54,7 +57,7 @@ const Graph = ()=>{
 			setOptions({
 				animationEnabled: true,
 				exportEnabled: true,
-				theme: "dark1", //"light1", "dark1", "dark2"
+				theme: "dark2", //"light1", "dark1", "dark2"
 				title:{
 					text: "Simple Column Chart with Index Labels"
 				},
@@ -74,7 +77,7 @@ const Graph = ()=>{
 	}
 	useEffect(()=>{
 		generate();
-		delayRun(5000);
+		delayRun(100);
 	});
 	
 	return (
