@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import Graph from './Components/Graph';
+import FunctionButtons from './Components/FunctionButtons';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-				<Graph/>
+				<FunctionButtons/>
       </header>
     </div>
   );

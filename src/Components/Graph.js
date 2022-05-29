@@ -3,6 +3,7 @@ import CanvasJSReact from './canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+
 const dictToList = (dict) => {
 	let res = [];
 	for (const key in dict){
@@ -13,18 +14,15 @@ const dictToList = (dict) => {
 	}
 	return res;
 }
-const Graph = ()=>{
+
+const Graph = (props)=>{
 	const [data, setData] = useState({});
+	const [shouldWipe, setShouldWipe] = useState(false);
 	const [options, setOptions] = useState({});
-	function functionIntegral(x){
-		return x ** 2; //linear
-		//return x;//uniform
-		const e = 2.718;
-		//return 1/(1+e**-(10*x-6));
-		//return 1/1.719 * (e ** x - 1);
-	}
+
 	const endBound = 1;
 	let runCount = 1;
+	let functionIntegral = props.functionIntegral;
 	function binarySearch(func, val, start, end){
 		let left = start;
 		let right = end;
@@ -48,7 +46,7 @@ const Graph = ()=>{
 	let results = data;
 	function generate(){
 		runCount++;
-		for (let i = 0; i < runCount ** 2; i++){
+		for (let i = 0; i < 10; i++){
 			let val = Math.random();
 			let generatedNum = binarySearch(functionIntegral, val, 0, endBound);
 			//let generatedNum = functionIntegral(val);
@@ -82,6 +80,7 @@ const Graph = ()=>{
 					dataPoints:dictToList(data)
 				}]
 			});
+
 		}, delay);
 
 	}
@@ -91,9 +90,11 @@ const Graph = ()=>{
 	});
 	
 	return (
-	<div>
-		<CanvasJSChart options = {options} />
-	</div>
+		<>
+			<div>
+				<CanvasJSChart options = {options} />
+			</div>
+		</>
 	);
 }
 export default Graph;
