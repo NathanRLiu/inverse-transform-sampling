@@ -12,20 +12,25 @@ function integralUniform(x){
 	return x;
 }
 function integralNormal(x){
-	return 1/(1+e**-(10*x-6));
+	return 1/(1+e**-(10*x-5));
+}
+function integralExponential(x){
+	return 1/1.719 * (e ** x - 1);
 }
 function integralLogarithmic(x){
-	return 1/1.719 * (e ** x - 1);
+	const C = 1.7183;
+	return (C*x+1) * Math.log(C*x+1) - C*x;
 }
 
 const functionIntegrals = {
-	"linear":integralLinear,
-	"uniform":integralUniform,
-	"normal":integralNormal,
-	"logarithmic":integralLogarithmic
+	"Linear":integralLinear,
+	"Uniform":integralUniform,
+	"Normal":integralNormal,
+	"Exponential":integralExponential,
+	"Logarithmic":integralLogarithmic
 }
 const FunctionButtons = ()=>{
-	const [functionName, setFunctionName] = useState("linear");
+	const [functionName, setFunctionName] = useState("Linear");
 	const [keyCount, setKeyCount] = useState(0);
 
 	return (
@@ -40,7 +45,7 @@ const FunctionButtons = ()=>{
 					})
 				}
 			</div>
-			<Graph functionIntegral = {functionIntegrals[functionName]} key = {keyCount}/>
+			<Graph functionIntegral = {functionIntegrals[functionName]} functionName = {functionName} key = {keyCount}/>
 		</>
 	);
 }

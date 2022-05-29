@@ -46,7 +46,7 @@ const Graph = (props)=>{
 	let results = data;
 	function generate(){
 		runCount++;
-		for (let i = 0; i < 10; i++){
+		for (let i = 0; i < 50; i++){
 			let val = Math.random();
 			let generatedNum = binarySearch(functionIntegral, val, 0, endBound);
 			//let generatedNum = functionIntegral(val);
@@ -67,7 +67,7 @@ const Graph = (props)=>{
 				exportEnabled: true,
 				theme: "dark2", //"light1", "dark1", "dark2"
 				title:{
-					text: "Linear Distribution"
+					text: props.functionName + " Distribution"
 				},
 				axisY: {
 					includeZero: true
@@ -86,7 +86,7 @@ const Graph = (props)=>{
 	}
 	useEffect(()=>{
 		generate();
-		delayRun(100);
+		delayRun(500);
 	});
 	
 	return (
