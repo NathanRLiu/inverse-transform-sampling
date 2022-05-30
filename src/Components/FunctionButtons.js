@@ -14,6 +14,9 @@ function integralUniform(x){
 function integralNormal(x){
 	return 1/(1+e**-(10*x-5));
 }
+function integralBimodal(x){
+	return 1/(2+e**-(30*x-5)) + 1/(2+e**-(15*x-10));
+}
 function integralExponential(x){
 	return 1/1.719 * (e ** x - 1);
 }
@@ -27,7 +30,8 @@ const functionIntegrals = {
 	"Uniform":integralUniform,
 	"Normal":integralNormal,
 	"Exponential":integralExponential,
-	"Logarithmic":integralLogarithmic
+	"Logarithmic":integralLogarithmic,
+	"Bimodal":integralBimodal
 }
 const FunctionButtons = ()=>{
 	const [functionName, setFunctionName] = useState("Linear");
