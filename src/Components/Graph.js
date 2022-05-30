@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import CanvasJSReact from './canvasjs.react';
+import ReactSlider from "react-slider";
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 
 const dictToList = (dict) => {
 	let res = [];
@@ -19,6 +19,7 @@ const Graph = (props)=>{
 	const [data, setData] = useState({});
 	const [shouldWipe, setShouldWipe] = useState(false);
 	const [options, setOptions] = useState({});
+	const [genRate, setGenRate] = useState(10);
 
 	const endBound = 1;
 	let runCount = 1;
@@ -46,7 +47,7 @@ const Graph = (props)=>{
 	let results = data;
 	function generate(){
 		runCount++;
-		for (let i = 0; i < 50; i++){
+		for (let i = 0; i < genRate; i++){
 			let val = Math.random();
 			let generatedNum = binarySearch(functionIntegral, val, 0, endBound);
 			//let generatedNum = functionIntegral(val);
@@ -91,9 +92,18 @@ const Graph = (props)=>{
 	
 	return (
 		<>
-			<div>
+			<div className="canvas">
 				<CanvasJSChart options = {options} />
 			</div>
+			<ReactSlider
+				className="horizontal-slider"
+				thumbClassName="example-thumb"
+				trackClassName="example-track"
+				onChange = {(newRate)=>{setGenRate(newRate)}}
+			/>
+			<p>
+				Samples per second: {genRate * 2}
+			</p>
 		</>
 	);
 }
